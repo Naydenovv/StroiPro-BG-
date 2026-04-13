@@ -1,0 +1,15 @@
+{
+  "title": "Жилищен Комплекс Черно Море",
+  "slug": "zhilishten-kompleks-cherno-more",
+  "type": "Жилищно строителство",
+  "year": 2024,
+  "area": "1250 м²",
+  "location": "Бургас",
+  "coverImage": "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=800&q=80&auto=format",
+  "description": "Нов съвременен жилищен комплекс с 12 апартамента, общински център и паркиране. Проектът предлага модерни облекчени интериори, централното отопление, системи за безопасност и достъп до морска атмосфера. Идеално място за семейния живот при море.",
+  "gallery": [
+    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&auto=format",
+    "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format",
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a8?w=800&q=80&auto=format"
+  ]
+}

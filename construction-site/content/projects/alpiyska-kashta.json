@@ -1,0 +1,15 @@
+{
+  "title": "Алпийска Къща",
+  "slug": "alpiyska-kashta",
+  "type": "Жилищно строителство",
+  "year": 2023,
+  "area": "320 м²",
+  "location": "Банско",
+  "coverImage": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80&auto=format",
+  "description": "Хладна планинска вила с традиционни архитектурни елементи и модерна топлинна изолация. Проектът вписва съвременния комфорт в планинската среда, с камина, дървени фасади и широки прозорци, отваращи се към планинския пейзаж.",
+  "gallery": [
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80&auto=format",
+    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80&auto=format",
+    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80&auto=format"
+  ]
+}

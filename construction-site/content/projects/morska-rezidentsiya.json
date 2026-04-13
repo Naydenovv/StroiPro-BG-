@@ -1,0 +1,15 @@
+{
+  "title": "Морска Резиденция",
+  "slug": "morska-rezidentsiya",
+  "type": "Жилищно строителство",
+  "year": 2025,
+  "area": "580 м²",
+  "location": "Варна",
+  "coverImage": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&auto=format",
+  "description": "Луксозна морска резиденция с панорамен поглед към Черно море. Проектът предлага модерна архитектура с просторни балкони, остъклени фасади и екологични строителни материали. Перфектна хармония между море и съвременно живеене.",
+  "gallery": [
+    "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&q=80&auto=format",
+    "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format",
+    "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80&auto=format"
+  ]
+}

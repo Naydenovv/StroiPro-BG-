@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest construction-site --typescript --tailwind --eslint --app --src --no-import-alias --use-npm)",
+      "Bash(npm --version)",
+      "Bash(export PATH=\"/usr/local/bin:/opt/homebrew/bin:$HOME/.nvm/versions/node/*/bin:$PATH\")",
+      "Bash(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh)",
+      "Bash(bash)",
+      "Bash(open http://localhost:3000)",
+      "mcp__Claude_Preview__preview_start",
+      "WebSearch",
+      "WebFetch(domain:unsplash.com)",
+      "Bash(curl -sI \"https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80\")",
+      "Bash(curl -sI \"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80\")",
+      "Bash(curl -sI \"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80\")",
+      "Bash(curl -sI \"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80\")",
+      "Bash(ipconfig getifaddr:*)",
+      "Bash(lsof -i :3000 -sTCP:LISTEN)",
+      "Bash(kill 22979)",
+      "Bash(sips -g all \"/Users/krasimirnaydenov/Downloads/Construction Site/construction-site/public/logo.png\")",
+      "Bash(python3 -c \"from PIL import Image; print\\('pillow available'\\)\")",
+      "Bash(pip3 install:*)",
+      "Bash(python3)"
+    ]
+  }
+}

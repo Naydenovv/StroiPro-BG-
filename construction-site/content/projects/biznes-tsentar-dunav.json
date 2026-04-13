@@ -1,0 +1,15 @@
+{
+  "title": "Бизнес Център Дунав",
+  "slug": "biznes-tsentar-dunav",
+  "type": "Бизнес Сектор",
+  "year": 2022,
+  "area": "1850 м²",
+  "location": "Русе",
+  "coverImage": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80&auto=format",
+  "description": "Съвременен бизнес център с А-класна инфраструктура, размещаващ офисни пространства, конферентни зали и корпоративни съоръжения. Архитектурата съчетава функционалност с естетика, с зелени зони и модерни комуникационни системи.",
+  "gallery": [
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format",
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a8?w=800&q=80&auto=format",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80&auto=format"
+  ]
+}
