@@ -2,14 +2,17 @@
   "title": "Морска Резиденция",
   "slug": "morska-rezidentsiya",
   "type": "Жилищно строителство",
-  "year": 2025,
-  "area": "580 м²",
+  "year": 2023,
+  "area": "520 м²",
   "location": "Варна",
-  "coverImage": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&auto=format",
-  "description": "Луксозна морска резиденция с панорамен поглед към Черно море. Проектът предлага модерна архитектура с просторни балкони, остъклени фасади и екологични строителни материали. Перфектна хармония между море и съвременно живеене.",
+  "coverImage": "https://images.unsplash.com/photo-1486326082583-4a4cd9f06b24?w=1600&q=85&auto=format",
+  "description": "Елегантна крайбрежна резиденция с директен достъп до плажа. Панорамни прозорци от пода до тавана максимизират морската гледка. Открита тераса с безкраен басейн и лятна кухня.",
   "gallery": [
-    "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&q=80&auto=format",
-    "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80&auto=format",
-    "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80&auto=format"
+    "https://images.unsplash.com/photo-1486326082583-4a4cd9f06b24?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1400&q=85&auto=format"
   ]
 }

@@ -1,15 +1,18 @@
 {
-  "title": "Покривна система Пирин",
+  "title": "Покривна Система Пирин",
   "slug": "pokrivna-sistema-pirin",
-  "type": "Покривни системи",
+  "type": "Покривни Системи",
   "year": 2024,
-  "area": "450 м²",
-  "location": "Благоевград",
-  "coverImage": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&auto=format",
-  "description": "Иновативна покривна система с интегрирана термична защита и дренажна система. Проектът използва висококачествени материали, които издържат екстремни метеорологични условия, обезпечавайки дълговечност и енергийна ефективност за домовете в региона.",
+  "area": "640 м²",
+  "location": "Гоце Делчев",
+  "coverImage": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=85&auto=format",
+  "description": "Комплексна подмяна и изграждане на покривна система за хотелски комплекс в подножието на Пирин. Двускатна конструкция с противопожарна изолация, хидроизолация и слънчеви панели, интегрирани в покрива.",
   "gallery": [
-    "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80&auto=format",
-    "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=800&q=80&auto=format",
-    "https://images.unsplash.com/photo-1560448204771-d5118743ea64?w=800&q=80&auto=format"
+    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=1400&q=85&auto=format",
+    "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1400&q=85&auto=format"
   ]
 }
