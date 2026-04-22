@@ -117,8 +117,13 @@ export default function PortfolioRibbon({
       const x = containerW * 0.5 + relT * 0.85;
 
       if (isMobile) {
-        // Mobile: flat, evenly-ordered row, no scatter, centered vertically
-        return { x, y: containerH * 0.5 };
+        // Mobile: evenly-ordered row high up so hero text at the bottom
+        // doesn't overlap. Tighter horizontal packing + small y scatter.
+        const mobileX = containerW * 0.5 + relT * 0.5; // tighter spacing
+        return {
+          x: mobileX,
+          y: containerH * 0.3 + scatterY * 0.25, // ~30% from top, mild jitter
+        };
       }
 
       // Desktop: sine wave + scatter jitter
@@ -222,7 +227,10 @@ export default function PortfolioRibbon({
         el.style.top = `${pos.y - finalH / 2}px`;
         el.style.zIndex = String(Math.round(finalScale * 100));
         el.style.opacity = String(Math.max(0.12, depthScale));
-        const baseRot = isMobileRef.current ? 0 : card.baseRotation;
+        // Mobile gets a softer random tilt; desktop uses the full rotation range
+        const baseRot = isMobileRef.current
+          ? card.baseRotation * 0.55
+          : card.baseRotation;
         el.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${baseRot}deg)`;
 
         // Show/hide label: visible when card is large enough
