@@ -26,7 +26,7 @@ export default function Navbar() {
             className="h-9 w-auto"
             priority
           />
-          <span className="text-xl font-bold tracking-tighter text-slate-50 font-montserrat hidden sm:inline">
+          <span className="text-xl font-bold tracking-tighter text-slate-50 font-montserrat">
             StroiPro BG
           </span>
         </Link>

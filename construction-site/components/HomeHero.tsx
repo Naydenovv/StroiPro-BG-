@@ -25,9 +25,9 @@ export default function HomeHero({ projects }: { projects: Project[] }) {
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 z-10 pointer-events-none">
-        {/* Mobile: very heavy gradient — top 40% dim + strong bottom gradient */}
-        <div className="absolute inset-0 bg-slate-950/50 md:hidden" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/85 to-transparent md:hidden" />
+        {/* Mobile: lighter gradient so images are visible */}
+        <div className="absolute inset-0 bg-slate-950/15 md:hidden" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/55 to-transparent md:hidden" />
         {/* Desktop: lighter gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent hidden md:block" />
       </div>

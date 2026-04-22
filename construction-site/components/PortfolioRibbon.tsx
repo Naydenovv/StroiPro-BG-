@@ -66,6 +66,8 @@ export default function PortfolioRibbon({
   const scrollDirRef = useRef<number>(0); // -1 = left, 0 = auto, 1 = right
   const cardElsRef = useRef<(HTMLDivElement | null)[]>([]);
   const labelElsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchLastXRef = useRef<number | null>(null);
 
   const [lightbox, setLightbox] = useState<{ open: boolean; index: number }>({
     open: false,
@@ -234,6 +236,24 @@ export default function PortfolioRibbon({
     scrollDirRef.current = 0;
   };
 
+  // ─── Touch swipe handlers ────────────────────────────────
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchLastXRef.current = e.touches[0].clientX;
+  }, []);
+
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    if (touchLastXRef.current === null) return;
+    const deltaX = touchLastXRef.current - e.touches[0].clientX;
+    scrollOffsetRef.current += deltaX * 1.5;
+    touchLastXRef.current = e.touches[0].clientX;
+  }, []);
+
+  const onTouchEnd = useCallback(() => {
+    touchStartXRef.current = null;
+    touchLastXRef.current = null;
+  }, []);
+
   // ─── Keyboard scroll support ────────────────────────────
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -316,6 +336,9 @@ export default function PortfolioRibbon({
         ref={containerRef}
         className="absolute inset-0 z-10"
         style={{ cursor: "default" }}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         {repeatedProjects.map((project, i) => (
           <div
