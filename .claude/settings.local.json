@@ -27,7 +27,8 @@
       "Bash(gh api *)",
       "Bash(npm install *)",
       "Bash(vercel whoami *)",
-      "Bash(vercel --yes --prod)"
+      "Bash(vercel --yes --prod)",
+      "Bash(npx next *)"
     ]
   }
 }

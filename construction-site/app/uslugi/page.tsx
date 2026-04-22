@@ -1,5 +1,6 @@
 import { getAllServices } from "@/lib/services";
 import FloatingServices from "@/components/FloatingServices";
+import ProcessSection from "@/components/ProcessSection";
 import LogoWatermark from "@/components/LogoWatermark";
 
 export const metadata = {
@@ -15,6 +16,7 @@ export default function UslugiPage() {
     <main className="min-h-screen bg-slate-950 relative overflow-hidden">
       <LogoWatermark />
       <FloatingServices services={services} />
+      <ProcessSection />
     </main>
   );
 }

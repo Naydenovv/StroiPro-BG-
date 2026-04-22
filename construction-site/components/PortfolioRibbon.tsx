@@ -233,9 +233,9 @@ export default function PortfolioRibbon({
           : card.baseRotation;
         el.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${baseRot}deg)`;
 
-        // Show/hide label: visible when card is large enough
+        // Show/hide label: always visible on mobile; desktop waits until card is big
         if (label) {
-          const showLabel = finalW > 100;
+          const showLabel = isMobileRef.current ? true : finalW > 100;
           label.style.opacity = showLabel ? "1" : "0";
           label.style.transform = showLabel
             ? "translateY(0)"

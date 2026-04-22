@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 
 interface Service {
@@ -49,6 +49,16 @@ export default function FloatingServices({
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  // Scroll-driven parallax for ambient glows + heading
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const glow2Y = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const headingY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0.3]);
+
   return (
     <div ref={containerRef} className="relative w-full" style={{ minHeight: "100vh" }}>
       {/* Same perspective grid as homepage */}
@@ -63,12 +73,21 @@ export default function FloatingServices({
         }}
       />
 
-      {/* Ambient glow */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/3 w-72 h-72 bg-slate-500/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Ambient glow — parallax on scroll */}
+      <motion.div
+        style={{ y: glowY }}
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"
+      />
+      <motion.div
+        style={{ y: glow2Y }}
+        className="absolute bottom-1/4 right-1/3 w-72 h-72 bg-slate-500/5 rounded-full blur-3xl pointer-events-none"
+      />
 
-      {/* Header — static on mobile, absolute on desktop */}
-      <div className="relative md:absolute md:top-28 md:left-16 z-30 pt-28 md:pt-0 px-6 md:px-0 pb-0 md:pb-0 max-w-md pointer-events-none">
+      {/* Header — static on mobile, absolute on desktop; parallax fade on scroll */}
+      <motion.div
+        style={{ y: headingY, opacity: headingOpacity }}
+        className="relative md:absolute md:top-28 md:left-16 z-30 pt-28 md:pt-0 px-6 md:px-0 pb-0 md:pb-0 max-w-md pointer-events-none"
+      >
         <div className="flex items-center gap-3 mb-3 md:mb-4">
           <span className="block w-8 h-px bg-slate-500" />
           <span className="text-[11px] text-slate-400 tracking-[3px] uppercase font-montserrat font-bold">
@@ -83,18 +102,19 @@ export default function FloatingServices({
         <p className="text-sm text-slate-400 leading-relaxed hidden md:block">
           Задръжте върху услуга за повече информация.
         </p>
-      </div>
+      </motion.div>
 
       {/* Floating Service Cards */}
       {isMobile ? (
-        /* Mobile: stacked scrollable layout */
+        /* Mobile: stacked scrollable layout with scroll-triggered reveals */
         <div className="relative z-20 pb-24 px-6 flex flex-col gap-4 mt-6">
           {services.map((service, i) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 60, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.55, ease: "easeOut" }}
             >
               <ServiceCard service={service} />
             </motion.div>
