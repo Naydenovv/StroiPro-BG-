@@ -67,20 +67,20 @@ export default function FloatingServices({
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/3 w-72 h-72 bg-slate-500/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Header overlay — top left */}
-      <div className="absolute top-28 left-8 md:left-16 z-30 pointer-events-none max-w-md">
-        <div className="flex items-center gap-3 mb-4">
+      {/* Header — static on mobile, absolute on desktop */}
+      <div className="relative md:absolute md:top-28 md:left-16 z-30 pt-28 md:pt-0 px-6 md:px-0 pb-0 md:pb-0 max-w-md pointer-events-none">
+        <div className="flex items-center gap-3 mb-3 md:mb-4">
           <span className="block w-8 h-px bg-slate-500" />
           <span className="text-[11px] text-slate-400 tracking-[3px] uppercase font-montserrat font-bold">
             Нашите услуги · {services.length} направления
           </span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-black font-montserrat text-white leading-[1.1] tracking-tighter mb-3">
+        <h1 className="text-3xl md:text-5xl font-black font-montserrat text-white leading-[1.1] tracking-tighter mb-2 md:mb-3">
           Майсторство,
           <br />
           <em className="text-amber-500 not-italic">прецизност.</em>
         </h1>
-        <p className="text-sm text-slate-400 leading-relaxed">
+        <p className="text-sm text-slate-400 leading-relaxed hidden md:block">
           Задръжте върху услуга за повече информация.
         </p>
       </div>
@@ -88,7 +88,7 @@ export default function FloatingServices({
       {/* Floating Service Cards */}
       {isMobile ? (
         /* Mobile: stacked scrollable layout */
-        <div className="relative z-20 pt-56 pb-24 px-6 flex flex-col gap-6">
+        <div className="relative z-20 pb-24 px-6 flex flex-col gap-4 mt-6">
           {services.map((service, i) => (
             <motion.div
               key={service.id}

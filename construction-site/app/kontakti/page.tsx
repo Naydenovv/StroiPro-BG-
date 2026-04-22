@@ -34,7 +34,7 @@ export default function KontaktiPage() {
             <span className="inline-block px-4 py-1 mb-4 text-xs font-bold tracking-widest uppercase bg-amber-500/20 border border-amber-500/30 text-amber-500 rounded-full">
               Връзка с нас
             </span>
-            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none mb-6 font-montserrat">
+            <h1 className="text-4xl md:text-7xl font-black text-white tracking-tighter leading-none mb-6 font-montserrat">
               Свържете се с нас
             </h1>
             <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">

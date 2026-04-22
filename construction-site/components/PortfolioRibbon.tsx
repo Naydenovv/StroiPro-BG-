@@ -368,7 +368,7 @@ export default function PortfolioRibbon({
         onMouseLeave={stopScroll}
         onTouchStart={() => startScroll(-1)}
         onTouchEnd={stopScroll}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white flex items-center justify-center hover:bg-white/20 active:bg-white/30 transition-all duration-200 cursor-pointer"
+        className="absolute left-4 md:left-8 top-1/3 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white hidden md:flex items-center justify-center hover:bg-white/20 active:bg-white/30 transition-all duration-200 cursor-pointer"
         aria-label="Скролирай наляво"
       >
         <span className="material-symbols-outlined text-xl">chevron_left</span>
@@ -379,7 +379,7 @@ export default function PortfolioRibbon({
         onMouseLeave={stopScroll}
         onTouchStart={() => startScroll(1)}
         onTouchEnd={stopScroll}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white flex items-center justify-center hover:bg-white/20 active:bg-white/30 transition-all duration-200 cursor-pointer"
+        className="absolute right-4 md:right-8 top-1/3 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white hidden md:flex items-center justify-center hover:bg-white/20 active:bg-white/30 transition-all duration-200 cursor-pointer"
         aria-label="Скролирай надясно"
       >
         <span className="material-symbols-outlined text-xl">

@@ -35,7 +35,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <main className="min-h-screen bg-slate-950 pb-24">
 
       {/* Hero */}
-      <header className="relative h-[75vh] flex items-end overflow-hidden">
+      <header className="relative h-[55vh] md:h-[75vh] flex items-end overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center scale-105"
           style={{ backgroundImage: `url('${project.coverImage}')` }}
@@ -66,7 +66,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               {project.year}
             </span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black font-montserrat tracking-tighter text-white leading-none">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black font-montserrat tracking-tighter text-white leading-none">
             {project.title}
           </h1>
         </div>
