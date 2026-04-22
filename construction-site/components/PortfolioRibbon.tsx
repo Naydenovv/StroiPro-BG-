@@ -381,7 +381,16 @@ export default function PortfolioRibbon({
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        {repeatedProjects.map((project, i) => (
+        {repeatedProjects.map((project, i) => {
+          // Ribbon cards are small (max ~260px). Rewrite Unsplash URLs to request
+          // small thumbnails instead of hero-size images — huge bandwidth win.
+          const thumbSrc = project.coverImage.includes("images.unsplash.com")
+            ? project.coverImage
+                .replace(/([?&])w=\d+/, "$1w=500")
+                .replace(/([?&])q=\d+/, "$1q=70")
+            : project.coverImage;
+          const isPriority = i < 6; // first 6 are visible on initial paint
+          return (
           <div
             key={`${project.slug}-${i}`}
             ref={(el) => {
@@ -392,10 +401,14 @@ export default function PortfolioRibbon({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={project.coverImage}
+              src={thumbSrc}
               alt={project.title}
               className="w-full h-full object-cover pointer-events-none"
-              loading="lazy"
+              loading={isPriority ? "eager" : "lazy"}
+              fetchPriority={isPriority ? "high" : "low"}
+              decoding="async"
+              width={500}
+              height={650}
             />
             {/* Always-visible gradient + project name & location */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
@@ -422,7 +435,8 @@ export default function PortfolioRibbon({
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* ── Scroll Left / Right Buttons ── */}

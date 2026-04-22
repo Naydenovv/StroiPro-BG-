@@ -28,7 +28,10 @@
       "Bash(npm install *)",
       "Bash(vercel whoami *)",
       "Bash(vercel --yes --prod)",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "Bash(curl -s \"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://construction-site-five-kappa.vercel.app&strategy=mobile&category=performance&category=accessibility&category=best-practices&category=seo\")",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s \"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://construction-site-five-kappa.vercel.app&strategy=mobile\" -o /tmp/psi.json)"
     ]
   }
 }
