@@ -32,7 +32,7 @@ const CONFIG = {
   scrollBoost: 4,           // ← slower manual scroll too
   hoverRadius: 300,
   hoverScale: 2.6,
-  cardSpacing: 135,
+  cardSpacing: 180,
   rotationRange: 9,
   // Wave path settings
   waveAmplitude: 0.18,      // wave height as fraction of container height
@@ -106,20 +106,25 @@ export default function PortfolioRibbon({
       containerW: number,
       containerH: number,
       scatterX: number,
-      scatterY: number
+      scatterY: number,
+      isMobile: boolean
     ) => {
       // Wrap offset for infinite loop
       const t =
         ((offset % totalPathLength) + totalPathLength) % totalPathLength;
-      // Horizontal position: spread cards across screen width
       const halfPath = totalPathLength / 2;
       const relT = t - halfPath; // centered around 0
-      const x = containerW * 0.5 + relT * 0.85; // horizontal spread factor
-      // Vertical position: sine wave centered at ~45% height
+      const x = containerW * 0.5 + relT * 0.85;
+
+      if (isMobile) {
+        // Mobile: flat, evenly-ordered row, no scatter, centered vertically
+        return { x, y: containerH * 0.5 };
+      }
+
+      // Desktop: sine wave + scatter jitter
       const waveProgress = (t / totalPathLength) * Math.PI * 2 * CONFIG.waveFrequency;
       const waveY = Math.sin(waveProgress) * containerH * CONFIG.waveAmplitude;
       const y = containerH * 0.45 + waveY;
-      // Apply per-card scatter jitter
       return { x: x + scatterX, y: y + scatterY };
     },
     [totalPathLength]
@@ -172,7 +177,8 @@ export default function PortfolioRibbon({
           w,
           h,
           card.scatterX,
-          card.scatterY
+          card.scatterY,
+          isMobileRef.current
         );
 
         // Depth scale (center = big, edges = small)
@@ -216,7 +222,8 @@ export default function PortfolioRibbon({
         el.style.top = `${pos.y - finalH / 2}px`;
         el.style.zIndex = String(Math.round(finalScale * 100));
         el.style.opacity = String(Math.max(0.12, depthScale));
-        el.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${card.baseRotation}deg)`;
+        const baseRot = isMobileRef.current ? 0 : card.baseRotation;
+        el.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${baseRot}deg)`;
 
         // Show/hide label: visible when card is large enough
         if (label) {
