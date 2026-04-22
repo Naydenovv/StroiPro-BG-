@@ -27,8 +27,8 @@ export default function HomeHero({ projects }: { projects: Project[] }) {
       <div className="absolute inset-0 z-10 pointer-events-none">
         {/* Mobile: very light overlay — images stay visible, only bottom darkened for text */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent md:hidden" />
-        {/* Desktop: lighter gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent hidden md:block" />
+        {/* Desktop: very light gradient — images stay visible */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent hidden md:block" />
       </div>
 
       {/* Hero text — bottom left */}

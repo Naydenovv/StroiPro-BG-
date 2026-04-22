@@ -68,6 +68,9 @@ export default function PortfolioRibbon({
   const labelElsRef = useRef<(HTMLDivElement | null)[]>([]);
   const touchStartXRef = useRef<number | null>(null);
   const touchLastXRef = useRef<number | null>(null);
+  const touchLastTimeRef = useRef<number>(0);
+  const velocityRef = useRef<number>(0); // inertia: px/frame residual velocity
+  const isMobileRef = useRef<boolean>(false);
 
   const [lightbox, setLightbox] = useState<{ open: boolean; index: number }>({
     open: false,
@@ -140,8 +143,13 @@ export default function PortfolioRibbon({
     const animate = () => {
       if (!isPausedRef.current) {
         const dir = scrollDirRef.current;
+        const hasVelocity = Math.abs(velocityRef.current) > 0.05;
         if (dir !== 0) {
           scrollOffsetRef.current += dir * CONFIG.scrollBoost;
+        } else if (hasVelocity) {
+          // Inertia: keep moving in swipe direction, decay each frame
+          scrollOffsetRef.current += velocityRef.current;
+          velocityRef.current *= 0.94; // friction
         } else {
           scrollOffsetRef.current += CONFIG.autoSpeed;
         }
@@ -149,6 +157,7 @@ export default function PortfolioRibbon({
 
       const w = container.clientWidth;
       const h = container.clientHeight;
+      isMobileRef.current = w < 768;
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
       const maxDist = Math.sqrt((w / 2) ** 2 + (h / 2) ** 2);
@@ -182,8 +191,11 @@ export default function PortfolioRibbon({
           mouseScale = 1 + (CONFIG.hoverScale - 1) * t * t;
         }
 
+        // Smaller cards on mobile
+        const mobileScale = isMobileRef.current ? 0.62 : 1;
         const size =
-          CONFIG.baseSize + (CONFIG.maxSize - CONFIG.baseSize) * depthScale;
+          (CONFIG.baseSize + (CONFIG.maxSize - CONFIG.baseSize) * depthScale) *
+          mobileScale;
         const finalW = size * mouseScale;
         const finalH = size * 1.3 * mouseScale;
 
@@ -236,23 +248,36 @@ export default function PortfolioRibbon({
     scrollDirRef.current = 0;
   };
 
-  // ─── Touch swipe handlers ────────────────────────────────
+  // ─── Touch swipe handlers (with inertia) ─────────────────
   const onTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartXRef.current = e.touches[0].clientX;
     touchLastXRef.current = e.touches[0].clientX;
+    touchLastTimeRef.current = performance.now();
+    velocityRef.current = 0; // stop any ongoing inertia
   }, []);
 
   const onTouchMove = useCallback((e: React.TouchEvent) => {
     if (touchLastXRef.current === null) return;
-    // Natural swipe: drag right → content moves right (reverse of previous)
+    const now = performance.now();
+    const dt = Math.max(1, now - touchLastTimeRef.current);
+    // Natural swipe: drag right → content moves right
     const deltaX = e.touches[0].clientX - touchLastXRef.current;
     scrollOffsetRef.current += deltaX * 1.5;
+    // Track velocity as px per ~16ms frame — weighted smoothing
+    const perFrame = (deltaX * 1.5) * (16 / dt);
+    velocityRef.current = velocityRef.current * 0.3 + perFrame * 0.7;
     touchLastXRef.current = e.touches[0].clientX;
+    touchLastTimeRef.current = now;
   }, []);
 
   const onTouchEnd = useCallback(() => {
     touchStartXRef.current = null;
     touchLastXRef.current = null;
+    // Cap the flung velocity so a hard swipe doesn't fly off
+    const v = velocityRef.current;
+    const max = 45;
+    if (v > max) velocityRef.current = max;
+    else if (v < -max) velocityRef.current = -max;
   }, []);
 
   // ─── Keyboard scroll support ────────────────────────────
