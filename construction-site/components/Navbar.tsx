@@ -19,7 +19,7 @@ export default function Navbar() {
       <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl rounded-full px-8 py-4 z-50 bg-slate-900/80 backdrop-blur-xl shadow-2xl shadow-slate-950/20 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/logo-icon-light.png"
+            src="/logo-icon-light.webp"
             alt="StroiPro BG"
             width={80}
             height={42}

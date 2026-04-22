@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="col-span-1 md:col-span-2">
           <Image
-            src="/logo-light.png"
+            src="/logo-light.webp"
             alt="StroiPro BG"
             width={180}
             height={60}
