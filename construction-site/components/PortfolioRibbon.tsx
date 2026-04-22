@@ -244,7 +244,8 @@ export default function PortfolioRibbon({
 
   const onTouchMove = useCallback((e: React.TouchEvent) => {
     if (touchLastXRef.current === null) return;
-    const deltaX = touchLastXRef.current - e.touches[0].clientX;
+    // Natural swipe: drag right → content moves right (reverse of previous)
+    const deltaX = e.touches[0].clientX - touchLastXRef.current;
     scrollOffsetRef.current += deltaX * 1.5;
     touchLastXRef.current = e.touches[0].clientX;
   }, []);
