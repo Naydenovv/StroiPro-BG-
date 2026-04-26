@@ -1,7 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer on admin pages
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <footer className="w-full pt-20 pb-10 bg-slate-900">
       <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -9,9 +17,10 @@ export default function Footer() {
           <Image
             src="/logo-light.webp"
             alt="StroiPro BG"
-            width={180}
-            height={60}
+            width={200}
+            height={170}
             className="h-14 w-auto mb-4"
+            priority={false}
           />
           <p className="font-montserrat leading-relaxed text-slate-300 max-w-sm mb-8">
             Ние вярваме, че строителството е изкуство, което изисква търпение,
@@ -42,9 +51,9 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-amber-500 font-bold uppercase text-xs tracking-widest mb-6 font-montserrat">
+          <h3 className="text-amber-500 font-bold uppercase text-xs tracking-widest mb-6 font-montserrat">
             Бързи връзки
-          </h4>
+          </h3>
           <ul className="space-y-4">
             <li>
               <Link
@@ -74,9 +83,9 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-amber-500 font-bold uppercase text-xs tracking-widest mb-6 font-montserrat">
+          <h3 className="text-amber-500 font-bold uppercase text-xs tracking-widest mb-6 font-montserrat">
             Контакти
-          </h4>
+          </h3>
           <ul className="space-y-4 text-slate-400">
             <li className="flex items-start gap-3">
               <span className="material-symbols-outlined text-amber-500 text-xl">
@@ -95,20 +104,20 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto px-8 mt-20 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="font-montserrat leading-relaxed text-slate-500 text-sm">
+        <p className="font-montserrat leading-relaxed text-slate-400 text-sm">
           &copy; 2024 StroiPro BG. Всички права запазени. Елитно строителство и
           прецизност.
         </p>
         <div className="flex gap-6">
           <a
             href="#"
-            className="text-slate-500 hover:text-amber-500 text-xs font-montserrat transition-colors"
+            className="text-slate-400 hover:text-amber-500 text-xs font-montserrat transition-colors"
           >
             Политика за поверителност
           </a>
           <a
             href="#"
-            className="text-slate-500 hover:text-amber-500 text-xs font-montserrat transition-colors"
+            className="text-slate-400 hover:text-amber-500 text-xs font-montserrat transition-colors"
           >
             Общи условия
           </a>

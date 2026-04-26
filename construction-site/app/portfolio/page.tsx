@@ -7,8 +7,8 @@ export const metadata = {
     "Вижте нашите завършени обекти: жилищно строителство, бизнес сгради и реновации с безкомпромисно качество.",
 };
 
-export default function PortfolioPage() {
-  const projects = getAllProjects();
+export default async function PortfolioPage() {
+  const projects = await getAllProjects();
 
   return (
     <main className="pt-20">

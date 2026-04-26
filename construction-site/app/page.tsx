@@ -5,8 +5,8 @@ import ServicesSection from "@/components/ServicesSection";
 import HomeHero from "@/components/HomeHero";
 import { getAllProjects } from "@/lib/projects";
 
-export default function Home() {
-  const projects = getAllProjects();
+export default async function Home() {
+  const projects = await getAllProjects();
 
   return (
     <>

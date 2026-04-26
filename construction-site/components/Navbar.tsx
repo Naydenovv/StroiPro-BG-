@@ -14,6 +14,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Hide navbar on admin pages
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <>
       <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl rounded-full px-8 py-4 z-50 bg-slate-900/80 backdrop-blur-xl shadow-2xl shadow-slate-950/20 flex justify-between items-center">
@@ -21,8 +24,8 @@ export default function Navbar() {
           <Image
             src="/logo-icon-light.webp"
             alt="StroiPro BG"
-            width={80}
-            height={42}
+            width={140}
+            height={73}
             className="h-9 w-auto"
             priority
           />

@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { getAllProjects, getProjectBySlug } from "@/lib/projects";
 import ProjectGallery from "@/components/ProjectGallery";
 
-export function generateStaticParams() {
-  const projects = getAllProjects();
+export async function generateStaticParams() {
+  const projects = await getAllProjects();
   return projects.map((project) => ({
     slug: project.slug,
   }));
@@ -12,7 +12,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
   if (!project) return {};
   return {
     title: `${project.title} — StroiPro BG`,
@@ -22,10 +22,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
-  const allProjects = getAllProjects();
+  const allProjects = await getAllProjects();
   const currentIndex = allProjects.findIndex((p) => p.slug === project.slug);
   const prevProject = currentIndex > 0 ? allProjects[currentIndex - 1] : null;
   const nextProject =

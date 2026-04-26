@@ -3,7 +3,7 @@ import { getAllProjects } from "@/lib/projects";
 
 const BASE = "https://construction-site-five-kappa.vercel.app";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const staticPages = ["/", "/uslugi", "/kontakti", "/portfolio"].map((p) => ({
     url: `${BASE}${p}`,
@@ -12,7 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: p === "/" ? 1 : 0.8,
   }));
 
-  const projectPages = getAllProjects().map((project) => ({
+  const projects = await getAllProjects();
+  const projectPages = projects.map((project) => ({
     url: `${BASE}/portfolio/${project.slug}`,
     lastModified: now,
     changeFrequency: "yearly" as const,

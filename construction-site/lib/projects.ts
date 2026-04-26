@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
+import { supabase } from "./supabase";
 
 export interface Project {
+  id?: string;
   title: string;
   slug: string;
   type: string;
@@ -11,19 +11,49 @@ export interface Project {
   coverImage: string;
   description: string;
   gallery: string[];
+  sort_order?: number;
 }
 
-const projectsDir = path.join(process.cwd(), "content/projects");
-
-export function getAllProjects(): Project[] {
-  const files = fs.readdirSync(projectsDir).filter((f) => f.endsWith(".json"));
-  return files.map((file) => {
-    const content = fs.readFileSync(path.join(projectsDir, file), "utf-8");
-    return JSON.parse(content) as Project;
-  });
+// Map Supabase snake_case → camelCase
+function mapRow(row: Record<string, unknown>): Project {
+  return {
+    id: row.id as string,
+    title: row.title as string,
+    slug: row.slug as string,
+    type: row.type as string,
+    year: row.year as number,
+    area: row.area as string,
+    location: row.location as string,
+    coverImage: row.cover_image as string,
+    description: row.description as string,
+    gallery: (row.gallery as string[]) || [],
+    sort_order: row.sort_order as number,
+  };
 }
 
-export function getProjectBySlug(slug: string): Project | undefined {
-  const projects = getAllProjects();
-  return projects.find((p) => p.slug === slug);
+export async function getAllProjects(): Promise<Project[]> {
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .order("sort_order", { ascending: true });
+
+  if (error) {
+    console.error("Error fetching projects:", error);
+    return [];
+  }
+
+  return (data || []).map(mapRow);
+}
+
+export async function getProjectBySlug(
+  slug: string
+): Promise<Project | undefined> {
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  if (error || !data) return undefined;
+  return mapRow(data);
 }

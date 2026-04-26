@@ -5,8 +5,8 @@ export default function LogoWatermark() {
       <img
         src="/logo.webp"
         alt=""
-        width={550}
-        height={550}
+        width={300}
+        height={255}
         loading="lazy"
         decoding="async"
         className="absolute right-[-5%] top-1/2 -translate-y-1/2 w-[550px] h-auto opacity-[0.03] select-none"

@@ -398,6 +398,7 @@ export default function PortfolioRibbon({
             }}
             onClick={() => openLightbox(i)}
             className="absolute rounded-lg overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.5)] cursor-pointer transition-shadow duration-300 hover:shadow-[0_16px_64px_rgba(0,0,0,0.7)] will-change-transform"
+            style={{ opacity: 0, width: 0, height: 0, left: 0, top: 0, contain: "layout paint" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description:
       "Строим вашите мечти от основи до покрив. Ново строителство, ремонти, проектиране и покривни системи.",
     siteName: "StroiPro BG",
-    images: [{ url: "/logo.webp", width: 550, height: 550, alt: "StroiPro BG" }],
+    images: [{ url: "/logo.webp", width: 300, height: 255, alt: "StroiPro BG" }],
   },
   twitter: {
     card: "summary_large_image",
