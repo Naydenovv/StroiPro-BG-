@@ -83,6 +83,111 @@ export default function FloatingServices({
         className="absolute bottom-1/4 right-1/3 w-72 h-72 bg-slate-500/5 rounded-full blur-3xl pointer-events-none"
       />
 
+      {/* Floating ambient particles */}
+      {!isMobile && (
+        <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+          {/* Slow drifting circles */}
+          <motion.div
+            className="absolute w-2 h-2 rounded-full bg-amber-500/15"
+            style={{ top: "15%", left: "8%" }}
+            animate={{ y: [0, -30, 0, 25, 0], x: [0, 15, 0, -10, 0], scale: [1, 1.3, 1, 0.8, 1] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute w-3 h-3 rounded-full bg-amber-500/10"
+            style={{ top: "40%", left: "5%" }}
+            animate={{ y: [0, 20, 0, -35, 0], x: [0, -10, 0, 15, 0] }}
+            transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute w-1.5 h-1.5 rounded-full bg-slate-400/15"
+            style={{ top: "70%", left: "12%" }}
+            animate={{ y: [0, -20, 0, 15, 0], opacity: [0.15, 0.3, 0.15] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute w-2 h-2 rounded-full bg-amber-500/10"
+            style={{ top: "25%", right: "6%" }}
+            animate={{ y: [0, 25, 0, -20, 0], x: [0, -12, 0, 8, 0] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          />
+          <motion.div
+            className="absolute w-1 h-1 rounded-full bg-slate-300/20"
+            style={{ top: "55%", right: "10%" }}
+            animate={{ y: [0, -25, 0, 20, 0], scale: [1, 1.5, 1] }}
+            transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          <motion.div
+            className="absolute w-2.5 h-2.5 rounded-full bg-amber-500/8"
+            style={{ top: "80%", right: "15%" }}
+            animate={{ y: [0, 15, 0, -25, 0], x: [0, 10, 0, -15, 0] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          />
+
+          {/* Thin floating lines */}
+          <motion.div
+            className="absolute w-16 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent"
+            style={{ top: "30%", left: "3%" }}
+            animate={{ x: [0, 40, 0], opacity: [0, 0.3, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          <motion.div
+            className="absolute w-12 h-px bg-gradient-to-r from-transparent via-slate-400/15 to-transparent"
+            style={{ top: "60%", right: "4%" }}
+            animate={{ x: [0, -30, 0], opacity: [0, 0.25, 0] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+          />
+          <motion.div
+            className="absolute w-20 h-px bg-gradient-to-r from-transparent via-amber-500/15 to-transparent"
+            style={{ top: "85%", left: "20%" }}
+            animate={{ x: [0, 50, 0], opacity: [0, 0.2, 0] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          />
+
+          {/* Subtle rotating rings */}
+          <motion.div
+            className="absolute w-24 h-24 rounded-full border border-amber-500/5"
+            style={{ top: "20%", right: "3%" }}
+            animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+            transition={{ rotate: { duration: 30, repeat: Infinity, ease: "linear" }, scale: { duration: 8, repeat: Infinity, ease: "easeInOut" } }}
+          />
+          <motion.div
+            className="absolute w-32 h-32 rounded-full border border-slate-500/5"
+            style={{ top: "60%", left: "2%" }}
+            animate={{ rotate: -360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Small diamond shapes */}
+          <motion.div
+            className="absolute w-3 h-3 bg-amber-500/8 rotate-45"
+            style={{ top: "45%", left: "10%" }}
+            animate={{ y: [0, -15, 0, 10, 0], rotate: [45, 90, 45], opacity: [0.08, 0.18, 0.08] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute w-2 h-2 bg-slate-400/10 rotate-45"
+            style={{ top: "35%", right: "12%" }}
+            animate={{ y: [0, 12, 0, -18, 0], rotate: [45, 0, 45], opacity: [0.1, 0.2, 0.1] }}
+            transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+          />
+
+          {/* Pulsing dots cluster */}
+          <motion.div
+            className="absolute w-1 h-1 rounded-full bg-amber-500/20"
+            style={{ top: "75%", left: "7%" }}
+            animate={{ scale: [1, 2, 1], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute w-1 h-1 rounded-full bg-amber-500/15"
+            style={{ top: "73%", left: "9%" }}
+            animate={{ scale: [1, 1.8, 1], opacity: [0.15, 0.35, 0.15] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          />
+        </div>
+      )}
+
       {/* Header — static on mobile, absolute on desktop; parallax fade on scroll */}
       <motion.div
         style={{ y: headingY, opacity: headingOpacity }}
