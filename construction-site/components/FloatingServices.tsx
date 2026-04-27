@@ -175,9 +175,9 @@ export default function FloatingServices({
 
 function ServiceCard({ service }: { service: Service }) {
   return (
-    <div className="group relative bg-slate-900/80 backdrop-blur-md border border-white/5 rounded-xl p-8 hover:bg-slate-800/90 hover:border-amber-500/20 transition-all duration-500 cursor-default">
+    <div className="group relative bg-slate-900/80 backdrop-blur-md border border-white/5 rounded-xl p-8 hover:bg-slate-800/90 hover:border-amber-500/20 transition-all duration-500 cursor-default overflow-hidden">
       {/* Decorative corner glow on hover */}
-      <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/0 group-hover:bg-amber-500/10 transition-all duration-500 rounded-bl-3xl pointer-events-none" />
+      <div className="absolute -top-4 -right-4 w-20 h-20 bg-amber-500/0 group-hover:bg-amber-500/10 transition-all duration-500 rounded-full blur-xl pointer-events-none" />
 
       <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5 group-hover:bg-amber-500/20 transition-colors">
         <span
