@@ -121,6 +121,12 @@ export default function Footer() {
           >
             Общи условия
           </a>
+          <Link
+            href="/admin"
+            className="text-slate-600 hover:text-amber-500 text-xs font-montserrat transition-colors"
+          >
+            Admin
+          </Link>
         </div>
       </div>
     </footer>
