@@ -72,6 +72,125 @@ export default function ProcessSection() {
         style={{ y: glowY }}
         className="absolute top-1/3 -right-20 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"
       />
+      <motion.div
+        style={{ y: bgY }}
+        className="absolute bottom-1/4 -left-20 w-72 h-72 bg-amber-500/4 rounded-full blur-3xl pointer-events-none"
+      />
+
+      {/* Floating ambient elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Drifting dots — left side */}
+        <motion.div
+          className="absolute w-2 h-2 rounded-full bg-amber-500/15"
+          style={{ top: "10%", left: "5%" }}
+          animate={{ y: [0, -25, 0, 20, 0], x: [0, 12, 0, -8, 0] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute w-1.5 h-1.5 rounded-full bg-slate-400/12"
+          style={{ top: "35%", left: "8%" }}
+          animate={{ y: [0, 18, 0, -22, 0], opacity: [0.12, 0.25, 0.12] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <motion.div
+          className="absolute w-2.5 h-2.5 rounded-full bg-amber-500/10"
+          style={{ top: "65%", left: "4%" }}
+          animate={{ y: [0, -20, 0, 15, 0], x: [0, -10, 0, 14, 0] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
+        <motion.div
+          className="absolute w-1 h-1 rounded-full bg-amber-500/20"
+          style={{ top: "85%", left: "10%" }}
+          animate={{ scale: [1, 2, 1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+
+        {/* Drifting dots — right side */}
+        <motion.div
+          className="absolute w-2 h-2 rounded-full bg-amber-500/12"
+          style={{ top: "18%", right: "6%" }}
+          animate={{ y: [0, 22, 0, -18, 0], x: [0, -10, 0, 12, 0] }}
+          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        />
+        <motion.div
+          className="absolute w-1.5 h-1.5 rounded-full bg-slate-300/15"
+          style={{ top: "50%", right: "5%" }}
+          animate={{ y: [0, -15, 0, 20, 0], scale: [1, 1.4, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+        <motion.div
+          className="absolute w-2 h-2 rounded-full bg-amber-500/10"
+          style={{ top: "78%", right: "8%" }}
+          animate={{ y: [0, 15, 0, -25, 0], x: [0, 8, 0, -12, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+        />
+
+        {/* Floating gradient lines */}
+        <motion.div
+          className="absolute w-20 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent"
+          style={{ top: "22%", left: "2%" }}
+          animate={{ x: [0, 50, 0], opacity: [0, 0.3, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <motion.div
+          className="absolute w-16 h-px bg-gradient-to-r from-transparent via-slate-400/15 to-transparent"
+          style={{ top: "55%", right: "3%" }}
+          animate={{ x: [0, -40, 0], opacity: [0, 0.25, 0] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
+        <motion.div
+          className="absolute w-24 h-px bg-gradient-to-r from-transparent via-amber-500/15 to-transparent"
+          style={{ top: "80%", left: "6%" }}
+          animate={{ x: [0, 60, 0], opacity: [0, 0.2, 0] }}
+          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* Rotating rings */}
+        <motion.div
+          className="absolute w-28 h-28 rounded-full border border-amber-500/[0.06]"
+          style={{ top: "15%", right: "4%" }}
+          animate={{ rotate: 360, scale: [1, 1.08, 1] }}
+          transition={{ rotate: { duration: 35, repeat: Infinity, ease: "linear" }, scale: { duration: 10, repeat: Infinity, ease: "easeInOut" } }}
+        />
+        <motion.div
+          className="absolute w-36 h-36 rounded-full border border-slate-500/[0.05]"
+          style={{ top: "55%", left: "2%" }}
+          animate={{ rotate: -360 }}
+          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+        />
+
+        {/* Diamond shapes */}
+        <motion.div
+          className="absolute w-3 h-3 bg-amber-500/[0.07] rotate-45"
+          style={{ top: "40%", right: "10%" }}
+          animate={{ y: [0, -12, 0, 10, 0], rotate: [45, 90, 45], opacity: [0.07, 0.15, 0.07] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute w-2.5 h-2.5 bg-slate-400/[0.06] rotate-45"
+          style={{ top: "70%", left: "9%" }}
+          animate={{ y: [0, 14, 0, -10, 0], rotate: [45, 0, 45], opacity: [0.06, 0.14, 0.06] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        />
+
+        {/* Plus/cross shapes */}
+        <motion.div
+          className="absolute text-amber-500/10 text-lg font-light"
+          style={{ top: "28%", left: "12%" }}
+          animate={{ rotate: [0, 90, 0], opacity: [0.1, 0.2, 0.1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        >
+          +
+        </motion.div>
+        <motion.div
+          className="absolute text-slate-500/10 text-lg font-light"
+          style={{ top: "60%", right: "12%" }}
+          animate={{ rotate: [0, -90, 0], opacity: [0.1, 0.18, 0.1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+        >
+          +
+        </motion.div>
+      </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10">
         {/* Header */}
