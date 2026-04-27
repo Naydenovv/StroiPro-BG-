@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { compressImage, formatFileSize } from "@/lib/image-compress";
 
 interface Project {
@@ -370,6 +371,12 @@ export default function AdminPage() {
           >
             Вход
           </button>
+          <Link
+            href="/"
+            className="block text-center text-slate-500 hover:text-amber-500 text-sm mt-4 transition-colors"
+          >
+            ← Обратно към сайта
+          </Link>
         </form>
       </div>
     );
