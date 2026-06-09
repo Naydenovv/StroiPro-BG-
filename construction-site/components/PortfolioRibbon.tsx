@@ -71,6 +71,7 @@ export default function PortfolioRibbon({
   const touchLastTimeRef = useRef<number>(0);
   const velocityRef = useRef<number>(0); // inertia: px/frame residual velocity
   const isMobileRef = useRef<boolean>(false);
+  const autoDirectionRef = useRef<number>(1); // 1 = right, -1 = left — follows last scroll
 
   const [lightbox, setLightbox] = useState<{ open: boolean; index: number }>({
     open: false,
@@ -153,15 +154,22 @@ export default function PortfolioRibbon({
     const animate = () => {
       if (!isPausedRef.current) {
         const dir = scrollDirRef.current;
-        const hasVelocity = Math.abs(velocityRef.current) > 0.05;
+        const absVel = Math.abs(velocityRef.current);
         if (dir !== 0) {
+          // Button-held scroll
           scrollOffsetRef.current += dir * CONFIG.scrollBoost;
-        } else if (hasVelocity) {
-          // Inertia: keep moving in swipe direction, decay each frame
+        } else if (absVel > 0.15) {
+          // Inertia glide — smooth exponential decay
           scrollOffsetRef.current += velocityRef.current;
-          velocityRef.current *= 0.94; // friction
+          velocityRef.current *= 0.96; // gentler friction for smoother stop
+          // Remember last meaningful direction for auto-scroll
+          if (absVel > 0.5) {
+            autoDirectionRef.current = velocityRef.current > 0 ? 1 : -1;
+          }
         } else {
-          scrollOffsetRef.current += CONFIG.autoSpeed;
+          // Auto-scroll in the direction of last user scroll
+          velocityRef.current = 0; // clean stop
+          scrollOffsetRef.current += CONFIG.autoSpeed * autoDirectionRef.current;
         }
       }
 
@@ -327,11 +335,12 @@ export default function PortfolioRibbon({
     if (!container) return;
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      // Feed impulse into velocity — the animation loop applies friction
-      const impulse = (e.deltaY + e.deltaX) * 0.35;
-      velocityRef.current += impulse;
-      // Cap so a fast flick doesn't fly off
-      const max = 50;
+      // Blend new impulse with current velocity for smooth feel (no jitter)
+      const raw = (e.deltaY + e.deltaX) * 0.3;
+      // Weighted blend: 70% existing momentum + 30% new input → no sudden jumps
+      velocityRef.current = velocityRef.current * 0.7 + raw * 0.3;
+      // Soft cap
+      const max = 35;
       if (velocityRef.current > max) velocityRef.current = max;
       else if (velocityRef.current < -max) velocityRef.current = -max;
     };
