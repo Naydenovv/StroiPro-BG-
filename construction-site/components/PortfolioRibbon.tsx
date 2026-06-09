@@ -60,18 +60,19 @@ export default function PortfolioRibbon({
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
-  const scrollOffsetRef = useRef(0);
+  const scrollOffsetRef = useRef(0);       // actual rendered position (smooth)
+  const targetOffsetRef = useRef(0);       // where we want to be (jumpy input goes here)
   const animFrameRef = useRef<number>(0);
   const isPausedRef = useRef(false);
-  const scrollDirRef = useRef<number>(0); // -1 = left, 0 = auto, 1 = right
+  const scrollDirRef = useRef<number>(0);  // -1 = left, 0 = auto, 1 = right
   const cardElsRef = useRef<(HTMLDivElement | null)[]>([]);
   const labelElsRef = useRef<(HTMLDivElement | null)[]>([]);
   const touchStartXRef = useRef<number | null>(null);
   const touchLastXRef = useRef<number | null>(null);
   const touchLastTimeRef = useRef<number>(0);
-  const velocityRef = useRef<number>(0); // inertia: px/frame residual velocity
+  const velocityRef = useRef<number>(0);   // touch inertia only
   const isMobileRef = useRef<boolean>(false);
-  const autoDirectionRef = useRef<number>(1); // 1 = right, -1 = left — follows last scroll
+  const autoDirectionRef = useRef<number>(1); // 1 = right, -1 = left
 
   const [lightbox, setLightbox] = useState<{ open: boolean; index: number }>({
     open: false,
@@ -154,23 +155,29 @@ export default function PortfolioRibbon({
     const animate = () => {
       if (!isPausedRef.current) {
         const dir = scrollDirRef.current;
-        const absVel = Math.abs(velocityRef.current);
+
+        // 1. Move the TARGET (where we want to be)
         if (dir !== 0) {
           // Button-held scroll
-          scrollOffsetRef.current += dir * CONFIG.scrollBoost;
-        } else if (absVel > 0.15) {
-          // Inertia glide — smooth exponential decay
-          scrollOffsetRef.current += velocityRef.current;
-          velocityRef.current *= 0.96; // gentler friction for smoother stop
-          // Remember last meaningful direction for auto-scroll
-          if (absVel > 0.5) {
+          targetOffsetRef.current += dir * CONFIG.scrollBoost;
+        } else if (Math.abs(velocityRef.current) > 0.1) {
+          // Touch inertia — moves target
+          targetOffsetRef.current += velocityRef.current;
+          velocityRef.current *= 0.95;
+          if (Math.abs(velocityRef.current) > 0.5) {
             autoDirectionRef.current = velocityRef.current > 0 ? 1 : -1;
           }
         } else {
-          // Auto-scroll in the direction of last user scroll
-          velocityRef.current = 0; // clean stop
-          scrollOffsetRef.current += CONFIG.autoSpeed * autoDirectionRef.current;
+          velocityRef.current = 0;
+          // Auto-scroll in last direction
+          targetOffsetRef.current += CONFIG.autoSpeed * autoDirectionRef.current;
         }
+
+        // 2. Smoothly interpolate actual position toward target (lerp)
+        //    This is the key to buttery-smooth motion — no matter how
+        //    erratic the input, the rendered position glides.
+        const diff = targetOffsetRef.current - scrollOffsetRef.current;
+        scrollOffsetRef.current += diff * 0.12; // lerp factor: 0.12 = smooth glide
       }
 
       const w = container.clientWidth;
@@ -235,13 +242,11 @@ export default function PortfolioRibbon({
         el.style.top = `${pos.y - finalH / 2}px`;
         el.style.zIndex = String(Math.round(finalScale * 100));
         el.style.opacity = String(Math.max(0.12, depthScale));
-        // Mobile gets a softer random tilt; desktop uses the full rotation range
         const baseRot = isMobileRef.current
           ? card.baseRotation * 0.55
           : card.baseRotation;
         el.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${baseRot}deg)`;
 
-        // Show/hide label: always visible on mobile; desktop waits until card is big
         if (label) {
           const showLabel = isMobileRef.current ? true : finalW > 100;
           label.style.opacity = showLabel ? "1" : "0";
@@ -266,6 +271,7 @@ export default function PortfolioRibbon({
   // ─── Scroll direction handlers (hold to scroll) ─────────
   const startScroll = (dir: number) => {
     scrollDirRef.current = dir;
+    autoDirectionRef.current = dir;
   };
   const stopScroll = () => {
     scrollDirRef.current = 0;
@@ -283,11 +289,13 @@ export default function PortfolioRibbon({
     if (touchLastXRef.current === null) return;
     const now = performance.now();
     const dt = Math.max(1, now - touchLastTimeRef.current);
-    // Natural swipe: drag right → content moves right
     const deltaX = e.touches[0].clientX - touchLastXRef.current;
-    scrollOffsetRef.current += deltaX * 1.5;
-    // Track velocity as px per ~16ms frame — weighted smoothing
-    const perFrame = (deltaX * 1.5) * (16 / dt);
+    // Move both target and actual position for instant touch response
+    const move = deltaX * 1.5;
+    targetOffsetRef.current += move;
+    scrollOffsetRef.current += move;
+    // Track velocity for inertia after release
+    const perFrame = move * (16 / dt);
     velocityRef.current = velocityRef.current * 0.3 + perFrame * 0.7;
     touchLastXRef.current = e.touches[0].clientX;
     touchLastTimeRef.current = now;
@@ -329,20 +337,19 @@ export default function PortfolioRibbon({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lightbox.open]);
 
-  // ─── Mouse wheel scroll (with inertia) ──────────────────
+  // ─── Mouse wheel scroll ─────────────────────────────────
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      // Blend new impulse with current velocity for smooth feel (no jitter)
-      const raw = (e.deltaY + e.deltaX) * 0.3;
-      // Weighted blend: 70% existing momentum + 30% new input → no sudden jumps
-      velocityRef.current = velocityRef.current * 0.7 + raw * 0.3;
-      // Soft cap
-      const max = 35;
-      if (velocityRef.current > max) velocityRef.current = max;
-      else if (velocityRef.current < -max) velocityRef.current = -max;
+      // Move target directly — the lerp in animate() makes it smooth
+      const delta = (e.deltaY + e.deltaX) * 0.8;
+      targetOffsetRef.current += delta;
+      // Remember direction for auto-scroll
+      if (Math.abs(delta) > 0.5) {
+        autoDirectionRef.current = delta > 0 ? 1 : -1;
+      }
     };
     container.addEventListener("wheel", onWheel, { passive: false });
     return () => container.removeEventListener("wheel", onWheel);
