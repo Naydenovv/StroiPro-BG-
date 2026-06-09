@@ -360,17 +360,245 @@ export default function PortfolioRibbon({
       className="relative overflow-hidden bg-slate-950"
       style={{ height }}
     >
-      {/* Perspective grid background */}
+      {/* ═══ PREMIUM BACKGROUND LAYERS ═══ */}
+
+      {/* Layer 1: Enhanced perspective grid with radial fade */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundSize: "60px 60px",
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
+            transform: "perspective(600px) rotateX(15deg) scale(1.5)",
+            transformOrigin: "center 70%",
+            maskImage: "radial-gradient(ellipse 80% 70% at 50% 55%, black 20%, transparent 80%)",
+            WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 55%, black 20%, transparent 80%)",
+          }}
+        />
+      </div>
+
+      {/* Layer 2: Aurora gradient blobs — slow morphing ambient light */}
+      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
+        {/* Primary warm glow — top-left */}
+        <motion.div
+          className="absolute -top-[20%] -left-[10%] w-[60vw] h-[60vh] rounded-full opacity-[0.07]"
+          style={{
+            background: "radial-gradient(circle, rgba(245,158,11,0.8) 0%, rgba(245,158,11,0) 70%)",
+            filter: "blur(80px)",
+          }}
+          animate={{
+            x: [0, 60, 20, -30, 0],
+            y: [0, 40, -20, 30, 0],
+            scale: [1, 1.15, 0.95, 1.1, 1],
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Cool accent — center-right */}
+        <motion.div
+          className="absolute top-[10%] right-[-5%] w-[50vw] h-[50vh] rounded-full opacity-[0.05]"
+          style={{
+            background: "radial-gradient(circle, rgba(148,163,184,0.8) 0%, rgba(148,163,184,0) 70%)",
+            filter: "blur(90px)",
+          }}
+          animate={{
+            x: [0, -50, 20, -40, 0],
+            y: [0, 30, -40, 20, 0],
+            scale: [1, 1.1, 1.2, 0.95, 1],
+          }}
+          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+        />
+        {/* Amber accent — bottom-center */}
+        <motion.div
+          className="absolute bottom-[-10%] left-[20%] w-[45vw] h-[45vh] rounded-full opacity-[0.06]"
+          style={{
+            background: "radial-gradient(circle, rgba(245,158,11,0.6) 0%, rgba(217,119,6,0) 70%)",
+            filter: "blur(100px)",
+          }}
+          animate={{
+            x: [0, 40, -30, 50, 0],
+            y: [0, -30, 20, -10, 0],
+            scale: [1, 1.08, 1.15, 0.92, 1],
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 8 }}
+        />
+        {/* Deep blue whisper — bottom-right */}
+        <motion.div
+          className="absolute bottom-[5%] right-[10%] w-[35vw] h-[35vh] rounded-full opacity-[0.04]"
+          style={{
+            background: "radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(59,130,246,0) 70%)",
+            filter: "blur(80px)",
+          }}
+          animate={{
+            x: [0, -30, 15, -20, 0],
+            y: [0, 20, -15, 25, 0],
+          }}
+          transition={{ duration: 28, repeat: Infinity, ease: "easeInOut", delay: 12 }}
+        />
+      </div>
+
+      {/* Layer 3: Radial vignette — premium focus effect */}
       <div
-        className="absolute inset-0 z-0 opacity-40 pointer-events-none"
+        className="absolute inset-0 z-[2] pointer-events-none"
         style={{
-          backgroundSize: "60px 60px",
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
-          transform: "perspective(600px) rotateX(15deg) scale(1.5)",
-          transformOrigin: "center 70%",
+          background: "radial-gradient(ellipse 70% 60% at 50% 45%, transparent 30%, rgba(2,6,23,0.6) 100%)",
         }}
       />
+
+      {/* Layer 4: Film grain texture — editorial premium feel */}
+      <div
+        className="absolute inset-0 z-[3] pointer-events-none opacity-[0.03] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: "128px 128px",
+        }}
+      />
+
+      {/* Layer 5: Floating light particles */}
+      <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden hidden md:block">
+        {/* Sparkling dots — scattered */}
+        <motion.div
+          className="absolute w-1 h-1 rounded-full bg-amber-400"
+          style={{ top: "18%", left: "12%" }}
+          animate={{ opacity: [0, 0.6, 0], scale: [0.5, 1, 0.5] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute w-0.5 h-0.5 rounded-full bg-white"
+          style={{ top: "32%", left: "25%" }}
+          animate={{ opacity: [0, 0.5, 0], scale: [0.5, 1.2, 0.5] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+        />
+        <motion.div
+          className="absolute w-1 h-1 rounded-full bg-amber-300"
+          style={{ top: "55%", left: "8%" }}
+          animate={{ opacity: [0, 0.4, 0], scale: [0.5, 1, 0.5] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+        />
+        <motion.div
+          className="absolute w-0.5 h-0.5 rounded-full bg-white"
+          style={{ top: "75%", left: "18%" }}
+          animate={{ opacity: [0, 0.3, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <motion.div
+          className="absolute w-1 h-1 rounded-full bg-amber-400"
+          style={{ top: "22%", right: "15%" }}
+          animate={{ opacity: [0, 0.5, 0], scale: [0.5, 1, 0.5] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        />
+        <motion.div
+          className="absolute w-0.5 h-0.5 rounded-full bg-slate-300"
+          style={{ top: "45%", right: "8%" }}
+          animate={{ opacity: [0, 0.4, 0], scale: [0.5, 1.3, 0.5] }}
+          transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        />
+        <motion.div
+          className="absolute w-1 h-1 rounded-full bg-amber-500"
+          style={{ top: "68%", right: "22%" }}
+          animate={{ opacity: [0, 0.35, 0], scale: [0.5, 1, 0.5] }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        />
+        <motion.div
+          className="absolute w-0.5 h-0.5 rounded-full bg-white"
+          style={{ top: "85%", right: "12%" }}
+          animate={{ opacity: [0, 0.3, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+        />
+        {/* Center area sparkles */}
+        <motion.div
+          className="absolute w-0.5 h-0.5 rounded-full bg-amber-300"
+          style={{ top: "38%", left: "45%" }}
+          animate={{ opacity: [0, 0.5, 0], scale: [0.5, 1.5, 0.5] }}
+          transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
+        />
+        <motion.div
+          className="absolute w-1 h-1 rounded-full bg-white"
+          style={{ top: "52%", left: "55%" }}
+          animate={{ opacity: [0, 0.3, 0], scale: [0.5, 1, 0.5] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
+        <motion.div
+          className="absolute w-0.5 h-0.5 rounded-full bg-amber-400"
+          style={{ top: "28%", left: "65%" }}
+          animate={{ opacity: [0, 0.4, 0] }}
+          transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+        />
+
+        {/* Slow-drifting thin light streaks */}
+        <motion.div
+          className="absolute w-32 h-px"
+          style={{
+            top: "25%",
+            left: "5%",
+            background: "linear-gradient(90deg, transparent, rgba(245,158,11,0.15), transparent)",
+          }}
+          animate={{ x: [0, 80, 0], opacity: [0, 0.4, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute w-24 h-px"
+          style={{
+            top: "60%",
+            right: "8%",
+            background: "linear-gradient(90deg, transparent, rgba(148,163,184,0.12), transparent)",
+          }}
+          animate={{ x: [0, -60, 0], opacity: [0, 0.3, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
+        <motion.div
+          className="absolute w-40 h-px"
+          style={{
+            top: "80%",
+            left: "30%",
+            background: "linear-gradient(90deg, transparent, rgba(245,158,11,0.1), transparent)",
+          }}
+          animate={{ x: [0, 100, 0], opacity: [0, 0.25, 0] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 6 }}
+        />
+
+        {/* Soft rotating ring accents */}
+        <motion.div
+          className="absolute w-48 h-48 rounded-full border border-amber-500/[0.04]"
+          style={{ top: "15%", right: "5%" }}
+          animate={{ rotate: 360, scale: [1, 1.05, 1] }}
+          transition={{ rotate: { duration: 40, repeat: Infinity, ease: "linear" }, scale: { duration: 10, repeat: Infinity, ease: "easeInOut" } }}
+        />
+        <motion.div
+          className="absolute w-64 h-64 rounded-full border border-slate-500/[0.03]"
+          style={{ bottom: "10%", left: "3%" }}
+          animate={{ rotate: -360 }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+        />
+
+        {/* Subtle cross/plus accent marks */}
+        <motion.div
+          className="absolute text-amber-500/[0.08] font-thin text-2xl"
+          style={{ top: "20%", left: "6%" }}
+          animate={{ opacity: [0.04, 0.12, 0.04], rotate: [0, 90, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        >
+          +
+        </motion.div>
+        <motion.div
+          className="absolute text-slate-400/[0.06] font-thin text-xl"
+          style={{ top: "70%", right: "7%" }}
+          animate={{ opacity: [0.03, 0.1, 0.03], rotate: [0, -90, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        >
+          +
+        </motion.div>
+      </div>
+
+      {/* Layer 6: Top edge subtle light bleed */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px z-[5] pointer-events-none"
+        style={{
+          background: "linear-gradient(90deg, transparent 10%, rgba(245,158,11,0.15) 30%, rgba(148,163,184,0.1) 50%, rgba(245,158,11,0.1) 70%, transparent 90%)",
+        }}
+      />
+
+      {/* ═══ END PREMIUM BACKGROUND ═══ */}
 
       {/* Ribbon container */}
       <div
@@ -397,7 +625,7 @@ export default function PortfolioRibbon({
               cardElsRef.current[i] = el;
             }}
             onClick={() => openLightbox(i)}
-            className="absolute rounded-lg overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.5)] cursor-pointer transition-shadow duration-300 hover:shadow-[0_16px_64px_rgba(0,0,0,0.7)] will-change-transform"
+            className="absolute rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.6),0_2px_8px_rgba(0,0,0,0.3)] cursor-pointer transition-shadow duration-500 hover:shadow-[0_20px_80px_rgba(0,0,0,0.8),0_0_30px_rgba(245,158,11,0.08)] will-change-transform"
             style={{ opacity: 0, width: 0, height: 0, left: 0, top: 0, contain: "layout paint" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

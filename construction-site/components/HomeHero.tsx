@@ -23,12 +23,16 @@ export default function HomeHero({ projects }: { projects: Project[] }) {
         height="100%"
       />
 
-      {/* Gradient overlays */}
+      {/* Gradient overlays — refined for premium depth */}
       <div className="absolute inset-0 z-10 pointer-events-none">
-        {/* Mobile: very light overlay — images stay visible, only bottom darkened for text */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent md:hidden" />
-        {/* Desktop: very light gradient — images stay visible */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent hidden md:block" />
+        {/* Mobile: bottom fade for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/10 md:hidden" />
+        {/* Desktop: layered gradients for cinematic depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-transparent hidden md:block" />
+        {/* Subtle side vignette */}
+        <div className="absolute inset-0 hidden md:block" style={{
+          background: "linear-gradient(90deg, rgba(2,6,23,0.3) 0%, transparent 15%, transparent 85%, rgba(2,6,23,0.3) 100%)",
+        }} />
       </div>
 
       {/* Hero text — bottom left */}
