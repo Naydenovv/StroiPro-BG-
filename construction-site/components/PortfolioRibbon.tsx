@@ -321,13 +321,19 @@ export default function PortfolioRibbon({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lightbox.open]);
 
-  // ─── Mouse wheel scroll ─────────────────────────────────
+  // ─── Mouse wheel scroll (with inertia) ──────────────────
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      scrollOffsetRef.current += e.deltaY * 0.25 + e.deltaX * 0.25;
+      // Feed impulse into velocity — the animation loop applies friction
+      const impulse = (e.deltaY + e.deltaX) * 0.35;
+      velocityRef.current += impulse;
+      // Cap so a fast flick doesn't fly off
+      const max = 50;
+      if (velocityRef.current > max) velocityRef.current = max;
+      else if (velocityRef.current < -max) velocityRef.current = -max;
     };
     container.addEventListener("wheel", onWheel, { passive: false });
     return () => container.removeEventListener("wheel", onWheel);
